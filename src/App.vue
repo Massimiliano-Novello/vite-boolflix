@@ -23,8 +23,10 @@ export default {
           },
         })
         .then((resp) => {
+          console.log(resp);
           this.store.films = resp.data.results;
         });
+        this.store.searchFilm = ""
     },
   },
 };
