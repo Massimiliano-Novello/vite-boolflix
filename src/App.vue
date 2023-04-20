@@ -14,26 +14,44 @@ export default {
     };
   },
   methods: {
-    getSerachFilm() {
-      axios
-        .get(store.apiUrl, {
-          params: {
-            api_key: "299ac258e58fe881847557d889be5e07",
-            query: this.store.searchFilm,
-          },
-        })
-        .then((resp) => {
-          console.log(resp);
-          this.store.films = resp.data.results;
-        });
-        this.store.searchFilm = ""
+    getSearchFilm() {
+      if (this.store.searchFilm !== "") {
+        axios
+          .get(store.apiUrlFilm, {
+            params: {
+              api_key: "299ac258e58fe881847557d889be5e07",
+              query: this.store.searchFilm,
+            },
+          })
+          .then((resp) => {
+            console.log(resp);
+            this.store.films = resp.data.results;
+          });
+          this.store.searchFilm = ""
+      }
+        
     },
+    getSearcSerie() {
+      axios.get(store.apiUrlSerie, {
+        params: {
+          api_key: "299ac258e58fe881847557d889be5e07",
+          query: this.store.searchFilm
+        },
+      }).then((resp2) => {
+        console.log(resp2);
+        this.store.series = resp2.data.results
+      })
+    },
+    searchApi() {
+      this.getSearchFilm();
+      this.getSearcSerie()
+    }
   },
 };
 </script>
 
 <template>
-  <AppHeader  @search="getSerachFilm"/>
+  <AppHeader  @search="searchApi"/>
   <AppMain />
 </template>
 

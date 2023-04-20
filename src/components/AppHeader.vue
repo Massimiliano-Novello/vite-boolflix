@@ -13,10 +13,10 @@ export default {
 
 <template>
 
-    <header class="d-flex justify-content-between align-items-center">
+    <header class="d-flex justify-content-between align-items-center ">
         <div></div>
-        <div class="search-film text-end ">
-            <input type="text" id="film" v-model="store.searchFilm">
+        <div class="search-film text-end py-3">
+            <input type="text" id="film" v-model="store.searchFilm" >
             <button @click="$emit('search')">Cerca</button>
         </div>
     </header>
@@ -26,5 +26,6 @@ export default {
 <style lang="scss" scoped>
 header {
     height: 100px;
+    background-color: #303030;
 }
 </style>
