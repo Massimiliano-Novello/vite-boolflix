@@ -27,7 +27,7 @@ export default {
             console.log(resp);
             this.store.films = resp.data.results;
           });
-          this.store.searchFilm = ""
+          // this.store.searchFilm = ""
       }
         
     },
@@ -35,7 +35,7 @@ export default {
       axios.get(store.apiUrlSerie, {
         params: {
           api_key: "299ac258e58fe881847557d889be5e07",
-          query: this.store.searchFilm
+          query: this.store.searchFilm,
         },
       }).then((resp2) => {
         console.log(resp2);
