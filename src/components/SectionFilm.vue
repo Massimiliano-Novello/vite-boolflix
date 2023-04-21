@@ -4,9 +4,16 @@ export default {
     props: {
         film: Object
     },
-    // data () {
-    //     flags: ["en", "it", "fr"]
-    // },
+    data () {
+        return {
+            flegs: ["en", "it", "fr"]
+        }
+    },
+    methods: {
+        getImgPath (imgPath) {
+            return new URL(imgPath, import.meta.url).href; 
+        }
+    },
     computed: {
         objVotes() {
             return Math.ceil(this.film.vote_average / 2)
@@ -18,15 +25,15 @@ export default {
 <template>
     <div class="card-film g-2 text-center">
         <div class="img-card">
-            <img :src="`https://image.tmdb.org/t/p/w342${film.poster_path}`" alt="">
+            <img class="rounded" :src="`https://image.tmdb.org/t/p/w342${film.poster_path}`" alt="">
         </div>
-        <div class="content-card p-2 text-start">
+        <div class="content-card p-2 text-start rounded">
             <h3>Titolo:<span class="description">{{ film.title || film.name }}</span></h3>
             <h5>Titolo originale: <span class="description">{{ film.original_title || film.original_name }}</span></h5>
-            <img v-if="film.original_language === 'en'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Flag_of_the_United_Kingdom_%281-2%29.svg/1920px-Flag_of_the_United_Kingdom_%281-2%29.svg.png" alt="">
-            <img v-else-if="film.original_language === 'it'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Flag_of_Italy_%28Pantone%2C_2003%E2%80%932006%29.svg/220px-Flag_of_Italy_%28Pantone%2C_2003%E2%80%932006%29.svg.png" alt="">
-            <img v-else-if="film.original_language === 'fr'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg/280px-Flag_of_France_%281794%E2%80%931815%2C_1830%E2%80%931974%2C_2020%E2%80%93present%29.svg.png" alt="">
-            <p v-else > {{ film.original_language }} </p>
+            <div class="language">
+                <p v-if="!flegs.includes(film.original_language)">{{ film.original_language }}</p>
+                <img v-else :src="getImgPath(`../assets/img/${film.original_language}.png`)" alt="">
+            </div>
             <div class="votes">
                 <span>Voto:</span>
                 <i v-for="num in 5" class="fa-star" :class="num <= objVotes ? 'fa-solid' : 'fa-regular'"></i>              
@@ -61,6 +68,7 @@ export default {
 
     .content-card {
         width: 200px;
+        min-height: 300px;
         border: 1px solid white;
         background-color: black;
        display: none;

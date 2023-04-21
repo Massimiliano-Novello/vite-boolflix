@@ -13,8 +13,10 @@ export default {
 
 <template>
 
-    <header class="d-flex justify-content-between align-items-center ">
-        <div></div>
+    <header class="d-flex justify-content-between align-items-center p-4">
+        <div class="logo">
+            <h1 class="text-white">Boolflix</h1>
+        </div>
         <div class="search-film text-end py-3">
             <input type="text" id="film" v-model="store.searchFilm" >
             <button @click="$emit('search')">Cerca</button>
